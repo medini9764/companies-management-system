@@ -65,7 +65,8 @@ class CompanyController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $company = Company::findOrFail($id);
+        return view("pages.company.view",compact('company'));
     }
 
     /**

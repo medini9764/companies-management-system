@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/new-company/{id}', [CompanyController::class, 'edit'])->name('company.edit');
     Route::post('/new-company/{id}', [CompanyController::class, 'update'])->name('company.update');
     Route::get('/delete-company/{id}', [CompanyController::class, 'destroy'])->name('company.destroy');
+    Route::get('/company/{id}', [CompanyController::class, 'show'])->name('company.show');
 });
 
 Route::middleware('auth')->group(function () {
@@ -46,6 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/new-employee/{id}', [EmployeeController::class, 'edit'])->name('employee.edit');
     Route::post('/new-employee/{id}', [EmployeeController::class, 'update'])->name('employee.update');
     Route::get('/delete-employee/{id}', [EmployeeController::class, 'destroy'])->name('employee.destroy');
+    Route::get('/employee/{id}', [EmployeeController::class, 'show'])->name('employee.show');
 });
 
 require __DIR__.'/auth.php';

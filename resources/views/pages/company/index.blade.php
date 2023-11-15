@@ -43,6 +43,8 @@
                             <a href="{{ route('company.edit', ['id' => $company->id]) }}" class="btn btn-warning ml-auto">Update</a>
                             <!-- Delete -->
                             <a href="delete-company/{{ $company->id }}" class="btn btn-danger ml-auto">Delete</a>
+                            <!-- View -->
+                            <a href="{{ route('company.show', ['id' => $company->id]) }}" class="btn btn-info ml-auto">View</a>
                         </td>
 
                     </tr>

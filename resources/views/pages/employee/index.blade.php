@@ -45,6 +45,8 @@
                             <a href="{{ route('employee.edit', ['id' => $employee->id]) }}" class="btn btn-warning ml-auto">Update</a>
                             <!-- Delete -->
                             <a href="delete-employee/{{ $employee->id }}" class="btn btn-danger ml-auto">Delete</a>
+                            <!-- View -->
+                            <a href="{{ route('employee.show', ['id' => $employee->id]) }}" class="btn btn-info ml-auto">View</a>
                         </td>
 
                     </tr>

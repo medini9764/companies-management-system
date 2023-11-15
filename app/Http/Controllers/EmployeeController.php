@@ -46,7 +46,9 @@ class EmployeeController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+        $companies = Company::all();
+        return view("pages.employee.view",compact('employee','companies'));
     }
 
     /**
@@ -70,7 +72,7 @@ class EmployeeController extends Controller
         $employee->update($data);
         return back()->with('success','You have successfully updated employee details.');
     }
-   
+
     /**
      * Remove the specified resource from storage.
      */
