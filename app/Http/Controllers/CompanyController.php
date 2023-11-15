@@ -8,6 +8,7 @@ use App\Jobs\CompanyJobSend;
 use App\Models\Company;
 use App\Models\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class CompanyController extends Controller
@@ -17,7 +18,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::paginate(10);
+        $companies = Company::where('user_id','=',Auth::user()->id)->paginate(10);
         return view("pages.company.index",compact('companies'));
     }
 
@@ -36,6 +37,7 @@ class CompanyController extends Controller
     {
         Log::debug($request);
         $data = $request->validated(); // Get validated input data
+        $data['user_id'] = Auth::user()->id;
         if($request['logo']){
             //image upload to public folder
             $image['name'] = $request->file('logo')->store('logo', 'public');
@@ -46,7 +48,7 @@ class CompanyController extends Controller
 
 
         try {
-            $company = Company::create($data );
+            $company = Company::create($data);
             if($company->email){
                 CompanyJobSend::dispatch ($company->id);
             }

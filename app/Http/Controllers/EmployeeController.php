@@ -8,6 +8,7 @@ use App\Http\Requests\employee\UpdateEmployeeRequest;
 use App\Models\Company;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class EmployeeController extends Controller
@@ -17,7 +18,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::paginate(10);
+        $employees = Employee::where('user_id','=',Auth::user()->id)->paginate(10);
         return view("pages.employee.index",compact('employees'));
     }
 
@@ -26,7 +27,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        $companies = Company::all();
+        $companies = Company::where('user_id','=',Auth::user()->id)->get();
         return view("pages.employee.create",['companies' => $companies]);
     }
 
@@ -36,6 +37,7 @@ class EmployeeController extends Controller
     public function store(StoreEmployeeRequest $request)
     {
         $data = $request->validated(); // Get validated input data
+        $data['user_id'] = Auth::user()->id;
         Employee::create($data );
 
         return back()->with('success','You have successfully added employee details.');
@@ -47,7 +49,7 @@ class EmployeeController extends Controller
     public function show(string $id)
     {
         $employee = Employee::findOrFail($id);
-        $companies = Company::all();
+        $companies = Company::where('user_id','=',Auth::user()->id)->get();
         return view("pages.employee.view",compact('employee','companies'));
     }
 
@@ -57,7 +59,7 @@ class EmployeeController extends Controller
     public function edit(string $id)
     {
         $employee = Employee::findOrFail($id);
-        $companies = Company::all();
+        $companies = Company::where('user_id','=',Auth::user()->id)->get();
         return view("pages.employee.edit",compact('employee','companies'));
     }
 
